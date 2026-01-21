@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>National College - BCA Portal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://uploads.onecompiler.io/43k3f35nz/43semuhg7/1000445320.png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      color: white;
+    }
+
+    .overlay {
+      background: rgba(10, 10, 30, 0.65);
+      width: 100%;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .section, .hidden { display: none; }
+    .btn, .submit-btn {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #homePage .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #e0e0ff;
+      text-shadow: 2px 2px 6px #000;
+    }
+    .subtitle { font-size: 16px; color: #ccc; }
+    .logo {
+      width: 70px;
+      height: 70px;
+      background: url('https://uploads.onecompiler.io/43k3f35nz/43sduc9cg/1000434155.jpg') no-repeat center center;
+      background-size: cover;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .button-stack {
+      position: fixed;
+      top: 50%;
+      left: 60px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .btn-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00c6ff, #7b2ff7);
+      border: none;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .btn-label {
+      font-size: 14px;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .section { padding: 20px; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    .room {
+      background-color: #1e1e2f;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 960px;
+      box-shadow: 0 0 10px #444;
+      overflow-x: auto;
+    }
+    .partition-box { background: #202035; margin-top: 15px; padding: 10px; border-radius: 10px; }
+    .first  { background-color: #32cd32; }
+    .second { background-color: #8a2be2; }
+    .third  { background-color: #ffd700; color: black; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+    th { background: #333; color: #00ffff; }
+
+    .login-container {
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+    .total-print-btn {
+      margin: 10px 0 20px 0;
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #00c6ff;
+      color: black;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      width: auto;
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      background: #444;
+      color: white;
+      font-weight: bold;
+      width: 100px;
+    }
+
+    .error { color: red; font-size: 14px; }
+
+    @media print {
+      body * { visibility: hidden; }
+      #hallTicket, #hallTicket *, #chart-container, #chart-container * {
+        visibility: visible;
+      }
+      #chart-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: black !important;
+      }
+      .room { 
+        background: white !important; 
+        color: black !important; 
+        box-shadow: none !important; 
+        border: 2px solid black;
+        margin-bottom: 50px; /* Room break for printing */
+        page-break-after: always;
+      }
+      .partition-box { background: white !important; color: black !important; border: 1px solid black; }
+      th { background: #ddd !important; color: black !important; border: 1px solid black; }
+      td { border: 1px solid black !important; }
+      .total-print-btn, .back-btn { display: none !important; }
+      /* Keep Seating Colors */
+      .first { background-color: #32cd32 !important; -webkit-print-color-adjust: exact; }
+      .second { background-color: #8a2be2 !important; -webkit-print-color-adjust: exact; }
+      .third { background-color: #ffd700 !important; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div id="homePage">
+      <div class="header">
+        <div>
+          <div class="title">National College</div>
+          <div class="subtitle">Department of Computer Applications</div>
+          <div class="subtitle">Under the guidance of BCA Department staffs</div>
+          <div class="subtitle">Developing Team : Ragunath T , Mahesh M ,Khivraj S</div>
+        </div>
+        <div class="logo"></div>
+      </div>
+      <div class="button-stack">
+        <div class="btn-wrap">
+          <button class="btn" onclick="showSection('findHall')">🎓</button>
+          <div class="btn-label">Hall Ticket</div>
+        </div>
+        <div class="btn-wrap">
+          <button class="btn" onclick="showSection('viewChart')">📋</button>
+          <div class="btn-label">View Chart</div>
+        </div>
+        <div class="btn-wrap">
+          <button class="btn" onclick="showSection('staffLogin')">🔐</button>
+          <div class="btn-label">Staff Login</div>
+        </div>
+        <div class="btn-wrap">
+          <button class="btn" onclick="showSection('timeTable')">📅</button>
+          <div class="btn-label">Time Table</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="findHall">
+      <h2>Download Your Hall Ticket</h2>
+      <input type="text" id="regInput" placeholder="e.g., BCUS******">
+      <button onclick="findHall()">Download Hall Ticket</button>
+      <div id="result"></div>
+      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    </div>
+
+    <div class="section" id="viewChart">
+      <h2>Exam Seating Allotment</h2>
+      <h2>Department of Computer Applications</h2>
+      <button class="total-print-btn" onclick="window.print()">🖨️ Download Full Seating Chart (All Rooms)</button>
+      <div id="chart-container"></div>
+      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    </div>
+
+    <div class="section" id="staffLogin">
+      <div class="login-container">
+        <h2>Staff Login</h2>
+        <input type="text" id="id" placeholder="Enter Member ID">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+        <div id="errorMsg" class="error"></div>
+      </div>
+      <div id="benchPage" class="hidden">
+        <h2>Staff Panel – Set Benches & Exam Students</h2>
+        <div id="rooms-input"></div>
+        <button class="submit-btn" onclick="saveData()">Submit All</button>
+        <button class="back-btn" onclick="goBack()">⬅ Back</button>
+      </div>
+    </div>
+
+    <div class="section" id="timeTable">
+      <h2>CIA Test Time Table – January 2026</h2>
+      <p style="text-align:center; font-weight:bold;">Time: 8:30 AM – 09:30 AM</p>
+      <div class="room">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>III BCA</th>
+              <th>II BCA</th>
+              <th>I BCA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>27.01.2026</td><td>Python Programming</td><td>Tamil IV / Sanskrit IV</td><td>Tamil II / Sanskrit II</td></tr>
+            <tr><td>28.01.2026</td><td>DBMS</td><td>English IV</td><td>English II</td></tr>
+            <tr><td>29.01.2026</td><td>Operating System</td><td>Visual Programming</td><td>UI/UX Design</td></tr>
+            <tr><td>30.01.2026</td><td>Software Engineering</td><td>Accounting Package</td><td>M2</td></tr>
+            <tr><td>31.01.2026</td><td>REGULAR CLASS</td><td>Marketing</td><td>M3</td></tr>
+            <tr><td>02.02.2026</td><td>GS</td><td>NME</td><td>Skill Based Programming 1</td></tr>
+            <tr><td>03.02.2026</td><td>REGULAR CLASS</td><td>Value Education</td><td>Understanding Society</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    </div>
+
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.getElementById("homePage").style.display = "none";
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+      if (id === 'viewChart') renderChart();
+    }
+
+    function goBack() {
+      document.getElementById("homePage").style.display = 'block';
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById("benchPage").classList.add("hidden");
+      document.getElementById("errorMsg").textContent = "";
+    }
+
+    function generateRegs(prefix, start, end, exclude = [], add = []) {
+      const arr = [];
+      for(let i = start; i <= end; i++) {
+        const reg = prefix + i.toString().padStart(3,'0');
+        if (!exclude.includes(reg)) arr.push(reg);
+      }
+      add.forEach(r => arr.push(r));
+      return arr;
+    }
+
+    const regNums = {
+      firstYear: generateRegs('BCUS25', 1, 96, ['BCUS25006','BCUS25039']),
+      secondYear: generateRegs('BCUS24', 1, 124, ['BCUS24035','BCUS24055','BCUS24060','BCUS24064','BCUS24074','BCUS24106','BCUS24111','BCUS24119'], ['BCUS21066']),
+      thirdYear: generateRegs(
+        'BCUS23', 1, 122, 
+        ['BCUS23005','BCUS23006','BCUS23011','BCUS23015','BCUS23020','BCUS23033','BCUS23037','BCUS23038','BCUS23041','BCUS23086'],
+        generateRegs('BCUS23', 401, 453, ['BCUS23411','BCUS23412','BCUS23414','BCUS23419','BCUS23421','BCUS23423','BCUS23431','BCUS23441'])
+      ),
+    };
+
+    const rooms = [
+      { room: '101', partitions: ['A', 'B', 'C'], benchSeats: 3 },
+      { room: '104', partitions: ['A', 'B', 'C'], benchSeats: 3 },
+      { room: '106', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+      { room: '107', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+      { room: '109', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+      { room: '110', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+      { room: '111', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+    ];
+
+    const benchConfig = {
+      '101': { 'A': 4, 'B': 4, 'C': 4 },
+      '104': { 'A': 4, 'B': 4, 'C': 4 },
+      '106': { 'A': 5, 'B': 5, 'C': 6 },
+      '107': { 'A': 5, 'B': 5, 'C': 5 },
+      '109': { 'A': 5, 'B': 5, 'C': 5 },
+      '110': { 'A': 6, 'B': 6, 'C': 4 },
+      '111': { 'A': 4, 'B': 4, 'C': 4 },
+    };
+
+    const students = {};
+    let fIndex = 0, sIndex = 0, tIndex = 0;
+
+    function getNextReg(year) {
+      if(year === 'first') return regNums.firstYear[fIndex++] || '-'; 
+      if(year === 'second') return regNums.secondYear[sIndex++] || '-';
+      if(year === 'third') return regNums.thirdYear[tIndex++] || '-';
+      return '-';
+    }
+
+    function getYearForSeat(room, partition, seatIdx) {
+      if(room === '106') {
+        if(partition === 'A') return ['third', 'first', 'second', 'third'][seatIdx];
+        if(partition === 'B') return ['second', 'first', 'third', 'second'][seatIdx];
+        if(partition === 'C') return ['second', 'third', 'second', 'third'][seatIdx];
+      }
+      if(room === '110' && partition === 'C') return ['second', 'first', 'third', 'second'][seatIdx];
+      if(room === '110' && partition === 'B') return ['first', 'second', 'third', 'first'][seatIdx];
+      if(room === '111') {
+        if(partition === 'A') return ['third', 'first', 'second', 'third'][seatIdx];
+        if(partition === 'B') return ['second', 'third', 'second', 'third'][seatIdx];
+        if(partition === 'C') return ['third', 'second', 'third', 'first'][seatIdx];
+      }
+      if(['107','109','110'].includes(room)) return ['third', 'first', 'second', 'third'][seatIdx];
+      return ['second', 'third', 'first'][seatIdx];
+    }
+
+    function initData() {
+        fIndex = 0; sIndex = 0; tIndex = 0;
+        for (const reg in students) delete students[reg];
+        rooms.forEach(room => {
+          room.partitions.forEach(partition => {
+            const benchesCount = benchConfig[room.room][partition];
+            const benchSeats = room.benchSeats;
+            for (let benchIdx = 1; benchIdx <= benchesCount; benchIdx++) {
+              for (let seatIdx = 0; seatIdx < benchSeats; seatIdx++) {
+                const year = getYearForSeat(room.room, partition, seatIdx);
+                const reg = getNextReg(year);
+                if (reg !== '-') {
+                  students[reg] = {
+                    room: room.room,
+                    partition: partition,
+                    seat: seatIdx + 1,
+                    year: year === 'first' ? '1st Year' : (year === 'second' ? '2nd Year' : '3rd Year')
+                  };
+                }
+              }
+            }
+          });
+        });
+    }
+    initData();
+
+    function findHall() {
+      const reg = document.getElementById("regInput").value.trim().toUpperCase();
+      const res = document.getElementById("result");
+      if (students[reg]) {
+        const d = students[reg];
+        res.innerHTML = `
+          <div id="hallTicket" style="background:#fff;color:#000;padding:20px;border-radius:10px;max-width:500px;margin:auto;text-align:left;box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <h2 style="text-align:center;color:#003366;">National College</h2>
+            <h3 style="text-align:center;">Department of Computer Applications</h3>
+            <hr style="margin: 10px 0;">
+            <p><strong>Register Number:</strong> ${reg}</p>
+            <p><strong>Year:</strong> ${d.year}</p>
+            <p><strong>Room Number:</strong> ${d.room}</p>
+            <p><strong>Partition:</strong> ${d.partition}</p>
+            <p><strong>Seat Number:</strong> ${d.seat}</p>
+            <hr style="margin: 10px 0;">
+            <p style="font-size:14px; font-style: italic;">*Please bring this hall ticket along with your college ID card.</p>
+            <div style="text-align:center;margin-top:20px;">
+              <button onclick="window.print()" style="padding:10px 20px;font-size:16px;background:#003366;color:#fff;border:none;border-radius:5px;cursor:pointer;">🖨️ Download / Print</button>
+            </div>
+          </div>
+        `;
+      } else {
+        res.innerHTML = `<div style="margin-top:20px;"><h3>❌ Not Found</h3><p>Please check your register number or contact the department.</p></div>`;
+      }
+    }
+
+    function renderChart() {
+      const container = document.getElementById("chart-container");
+      container.innerHTML = "";
+      fIndex = 0; sIndex = 0; tIndex = 0;
+
+      rooms.forEach(room => {
+        let html = `<div class="room">
+                      <h3>Room ${room.room} Seating Allotment</h3>`;
+        
+        room.partitions.forEach(partition => {
+          const benchesCount = benchConfig[room.room][partition];
+          const benchSeats = room.benchSeats;
+          html += `<div class="partition-box">
+            <div class="partition-title">Partition ${partition}</div>
+            <table><thead><tr>`;
+          for(let i=1; i<=benchSeats; i++) html += `<th>Seat ${i}</th>`;
+          html += `</tr></thead><tbody>`;
+
+          for(let benchIdx = 0; benchIdx < benchesCount; benchIdx++) {
+            html += `<tr>`;
+            for(let seatIdx = 0; seatIdx < benchSeats; seatIdx++) {
+                let year = getYearForSeat(room.room, partition, seatIdx);
+                let reg = getNextReg(year);
+                const yearClass = year === 'first' ? 'first' : (year === 'second' ? 'second' : 'third');
+                html += `<td class="${yearClass}">${reg}</td>`;
+            }
+            html += `</tr>`;
+          }
+          html += `</tbody></table></div>`;
+        });
+        html += `</div>`;
+        container.innerHTML += html;
+      });
+    }
+
+    function login() {
+      const id = document.getElementById("id").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      if (id === "NCT" && pass === "0") {
+        document.getElementById("benchPage").classList.remove("hidden");
+      } else {
+        document.getElementById("errorMsg").textContent = "Invalid ID or Password!";
+      }
+    }
+
+    function saveData() {
+      alert("Settings saved successfully!");
+    }
+  </script>
+</body>
+</html>
