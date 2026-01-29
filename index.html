@@ -4,184 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>National College - BCA Portal</title>
+  
   <style>
+    /* --- CSS Styles --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: url('images/background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: #0a0a1e; 
       min-height: 100vh;
       color: white;
       line-height: 1.6;
     }
-
-    .overlay {
-      background: rgba(10, 10, 30, 0.75);
-      width: 100%;
-      min-height: 100vh;
-      padding: 15px;
-    }
-
-    /* Layout Adjustments */
-    .section, .hidden { display: none; }
+    .overlay { background: rgba(10, 10, 30, 0.85); width: 100%; min-height: 100vh; padding: 15px; }
+    .section { display: none; }
     
-    #homePage .header {
-      text-align: center;
-      margin-bottom: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .title {
-      font-size: 28px;
-      font-weight: bold;
-      color: #e0e0ff;
-      text-shadow: 2px 2px 6px #000;
-    }
-
-    .subtitle { font-size: 14px; color: #ccc; max-width: 90%; }
-
-    .logo {
-      width: 80px;
-      height: 80px;
-      background: url('https://uploads.onecompiler.io/43k3f35nz/43sduc9cg/1000434155.jpg') no-repeat center center;
-      background-size: cover;
-      border-radius: 50%;
-      border: 3px solid #00c6ff;
-    }
-
-    /* Responsive Button Grid */
-    .button-stack {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 400px;
-      margin: 40px auto;
-    }
-
-    .btn-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn {
-      width: 70px;
-      height: 70px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #00c6ff, #7b2ff7);
-      border: none;
-      color: white;
-      font-size: 28px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    /* Form & Content Styling */
-    .section h2 { margin-bottom: 20px; text-align: center; font-size: 22px; }
+    /* Header & Home */
+    #homePage .header { text-align: center; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .title { font-size: 28px; font-weight: bold; color: #e0e0ff; text-shadow: 2px 2px 6px #000; }
+    .subtitle { font-size: 14px; color: #ccc; }
     
-    input {
-      width: 100%;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #444;
-      background: #fff;
-      color: #000;
-      font-size: 16px;
+    .logo { 
+      width: 80px; height: 80px; 
+      background: linear-gradient(135deg, #00c6ff, #0072ff); 
+      border-radius: 50%; 
+      border: 3px solid #00c6ff; 
+      display: flex; justify-content: center; align-items: center;
+      font-size: 40px;
     }
+    
+    .button-stack { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 40px auto; }
+    .btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .btn { width: 70px; height: 70px; border-radius: 20px; background: linear-gradient(135deg, #00c6ff, #7b2ff7); border: none; color: white; font-size: 28px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+    .btn-label { font-size: 14px; font-weight: 600; }
+    
+    /* Room & Table Styling */
+    .room { background-color: #1e1e2f; margin: 20px 0; padding: 15px; border-radius: 12px; border: 1px solid #444; margin-bottom: 20px; }
+    .partition-box { background: #2a2a40; margin-top: 15px; padding: 10px; border-radius: 8px; }
+    .room h3 { color: #00c6ff; border-bottom: 1px solid #555; padding-bottom: 5px; }
+    
+    table { width: 100%; border-collapse: collapse; min-width: 300px; margin-top: 10px; }
+    td, th { padding: 8px 2px; text-align: center; border: 1px solid #555; font-size: 12px; }
+    th { background: #333; color: #00ffff; font-size: 11px; text-transform: uppercase; }
+    
+    .first { background-color: #2e8b57; color: white; } 
+    .second { background-color: #6a0dad; color: white; } 
+    .empty-seat { background-color: #222; color: #555; }
+    
+    /* Inputs & Buttons */
+    .action-btn { width: 100%; padding: 15px; background: #00c6ff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #000; font-size: 16px; margin-top: 10px; }
+    .download-btn { background: #ff9800; color: white; margin-bottom: 15px; font-weight: bold; } 
+    
+    input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; background: #eee; color: #000; }
+    .back-btn { margin-top: 20px; background: #444; color: white; padding: 12px; width: 100%; border-radius: 8px; border: none; cursor: pointer; }
+    
+    .ticket-card { background: white; color: black; padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 5px solid #00c6ff; }
 
-    button.action-btn {
-      width: 100%;
-      padding: 15px;
-      background: #00c6ff;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    /* Seating Chart & Tables */
-    .room {
-      background-color: #1e1e2f;
-      margin: 20px 0;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      overflow-x: auto; /* Important for mobile */
-    }
-
-    .partition-box { 
-      background: #2a2a40; 
-      margin-top: 15px; 
-      padding: 10px; 
-      border-radius: 8px; 
-    }
-
-    table { width: 100%; border-collapse: collapse; min-width: 300px; }
-    td, th {
-      padding: 10px 5px;
-      text-align: center;
-      border: 1px solid #444;
-      font-size: 13px;
-    }
-    th { background: #333; color: #00ffff; }
-
-    /* Colors */
-    .first  { background-color: #32cd32; color: white; }
-    .second { background-color: #8a2be2; color: white; }
-    .third  { background-color: #ffd700; color: black; }
-
-    .back-btn {
-      margin-top: 20px;
-      background: #555;
-      color: white;
-      padding: 12px;
-      width: 100%;
-      border-radius: 8px;
-      border: none;
-      font-weight: bold;
-    }
-
-    /* Media Queries for Desktop */
-    @media (min-width: 768px) {
-      .button-stack {
-        position: fixed;
-        left: 40px;
-        top: 50%;
-        transform: translateY(-50%);
-        grid-template-columns: 1fr;
-        margin: 0;
-      }
-      #homePage .header {
-        text-align: left;
-        flex-direction: row;
-        padding-left: 120px;
-      }
-      .title { font-size: 36px; }
-      .section { max-width: 800px; margin: auto; }
-    }
-
+    /* --- PRINT PDF SETTINGS (FIXED) --- */
     @media print {
-      body * { visibility: hidden; }
-      #hallTicket, #hallTicket *, #chart-container, #chart-container * { visibility: visible; }
-      #chart-container { position: absolute; left: 0; top: 0; width: 100%; }
-      .room { page-break-after: always; color: black !important; background: white !important; }
-      td, th { border: 1px solid black !important; color: black !important; }
+      body { background: white; color: black; }
+      .overlay { background: white; padding: 0; position: absolute; top:0; left:0; width: 100%; }
+      #homePage, #findHall, #timeTable, #staffLogin, .back-btn, .download-btn, .action-btn, h2, p {
+        display: none !important;
+      }
+      #viewChart { display: block !important; }
+      #chart-container { display: block !important; width: 100%; }
+      
+      .room { break-inside: avoid; page-break-inside: avoid; background: white !important; border: 1px solid #000 !important; margin-bottom: 30px; }
+      .partition-box { background: white !important; border: none !important; }
+      table, th, td { border: 1px solid black !important; color: black !important; }
+      
+      /* Force Colors for Print */
+      .first { background-color: #ddd !important; color: black !important; font-weight: bold; }
+      .second { background-color: #fff !important; color: black !important; font-weight: bold; }
+      .room h3 { color: black !important; border-bottom: 2px solid black; }
+      
+      /* Print Header */
+      #chart-container::before {
+        content: "National College - Seating Arrangement";
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        color: black;
+      }
     }
   </style>
 </head>
@@ -190,73 +96,59 @@
     
     <div id="homePage">
       <div class="header">
-        <div class="logo"></div>
+        <div class="logo">🏫</div>
         <div>
           <div class="title">National College</div>
           <div class="subtitle">Dept. of Computer Applications</div>
-          <div class="subtitle" style="font-size: 12px; opacity: 0.8;">Developed by: Ragunath T, Mahesh M, Khivraj S</div>
+          <div class="subtitle" style="font-size: 11px; color: #00c6ff; margin-top: 5px;">Room 107 Updated</div>
         </div>
       </div>
 
       <div class="button-stack">
-        <div class="btn-wrap">
-          <button class="btn" onclick="showSection('findHall')">🎓</button>
-          <div class="btn-label">Hall Ticket</div>
-        </div>
-        <div class="btn-wrap">
-          <button class="btn" onclick="showSection('viewChart')">📋</button>
-          <div class="btn-label">View Chart</div>
-        </div>
-        <div class="btn-wrap">
-          <button class="btn" onclick="showSection('timeTable')">📅</button>
-          <div class="btn-label">Time Table</div>
-        </div>
-        <div class="btn-wrap">
-          <button class="btn" onclick="showSection('staffLogin')">🔐</button>
-          <div class="btn-label">Staff Login</div>
-        </div>
+        <div class="btn-wrap"><button class="btn" onclick="showSection('findHall')">🎓</button><div class="btn-label">Hall Ticket</div></div>
+        <div class="btn-wrap"><button class="btn" onclick="showSection('viewChart')">📋</button><div class="btn-label">View Chart</div></div>
+        <div class="btn-wrap"><button class="btn" onclick="showSection('timeTable')">📅</button><div class="btn-label">Time Table</div></div>
+        <div class="btn-wrap"><button class="btn" onclick="showSection('staffLogin')">🔐</button><div class="btn-label">Staff Login</div></div>
       </div>
     </div>
 
     <div class="section" id="findHall">
-      <h2>Hall Ticket</h2>
-      <input type="text" id="regInput" placeholder="Enter Reg No (e.g. BCUS25001)">
-      <button class="action-btn" onclick="findHall()">Search Ticket</button>
-      <div id="result" style="margin-top: 20px;"></div>
+      <h2>Search Hall Ticket</h2>
+      <input type="text" id="regInput" placeholder="Enter Reg No (e.g. BCUS24120)">
+      <button class="action-btn" onclick="findHall()">Find My Seat</button>
+      <div id="result"></div>
       <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
     </div>
 
     <div class="section" id="viewChart">
-      <h2>Seating Allotment</h2>
-      <button class="action-btn" style="background: #ffd700; color: black; margin-bottom: 15px;" onclick="window.print()">🖨️ Print Full Chart</button>
+      <h2>Seating Allotment Chart</h2>
+      <p style="font-size:11px; color:#aaa; margin-bottom:10px;">
+        <span style="color:#2e8b57">■</span> 1st Year | <span style="color:#6a0dad">■</span> 2nd Year
+      </p>
+      
+      <button class="action-btn download-btn" onclick="window.print()">📥 Print / Save as PDF</button>
+
       <div id="chart-container"></div>
-      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+      
+      <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
     </div>
 
     <div class="section" id="timeTable">
       <h2>CIA Time Table</h2>
       <div class="room">
         <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>III BCA</th>
-              <th>II BCA</th>
-              <th>I BCA</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <tr><td>27.01.2026</td><td>Python programming</td><td>Lang IV</td><td>Lang II</td></tr>
-            <tr><td>28.01.2026</td><td>Database Systems</td><td>English IV</td><td>English II</td></tr>
-            <tr><td>29.01.2026</td><td>Operating Systems</td><td>Visual programming</td><td>UI/UX Design</td></tr>
-            <tr><td>30.01.2026</td><td>Software Engineering</td><td>Accounting Package</td><td>Allied Mathematics-II</td></tr>
-            <tr><td>31.01.2026</td><td>class</td><td>Marketing</td><td>Allied Mathematics-III</td></tr>
-            <tr><td>02.02.2026</td><td>Gender Studies</td><td>NME</td><td>Skill Based Elective I-Webprogramming </td></tr>
-            <tr><td>03.02.2026</td><td>class</td><td>value Education</td><td>Understanding India </td></tr>
+          <thead><tr><th>Date</th><th>II BCA</th><th>I BCA</th></tr></thead>
+          <tbody>
+            <tr><td>27.01.2026</td><td>Lang IV</td><td>Lang II</td></tr>
+            <tr><td>28.01.2026</td><td>English IV</td><td>English II</td></tr>
+            <tr><td>29.01.2026</td><td>Visual programming</td><td>UI/UX Design</td></tr>
+            <tr><td>30.01.2026</td><td>Accounting Package</td><td>Allied Maths II</td></tr>
+            <tr><td>02.02.2026</td><td>Gender Studies</td><td>NME</td></tr>
+            <tr><td>03.02.2026</td><td>class</td><td>value Education</td></tr>
           </tbody>
         </table>
       </div>
-      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+      <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
     </div>
 
     <div class="section" id="staffLogin">
@@ -264,160 +156,196 @@
       <input type="text" id="id" placeholder="Member ID">
       <input type="password" id="password" placeholder="Password">
       <button class="action-btn" onclick="login()">Login</button>
-      <p id="errorMsg" style="color:red; text-align:center; margin-top:10px;"></p>
-      <button class="back-btn" onclick="goBack()">⬅ Back</button>
+      <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
     </div>
 
   </div>
 
   <script>
-    // Logic from your original script remains the same but integrated with new IDs
+    // --- 1. Navigation Logic ---
     function showSection(id) {
       document.getElementById("homePage").style.display = "none";
       document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
       document.getElementById(id).style.display = 'block';
-      if (id === 'viewChart') renderChart();
+      if (id === 'viewChart') renderChart(); 
     }
 
     function goBack() {
       document.getElementById("homePage").style.display = 'block';
       document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById("result").innerHTML = ""; 
     }
 
+    // --- 2. Data Generation ---
     function generateRegs(prefix, start, end, exclude = [], add = []) {
       const arr = [];
       for(let i = start; i <= end; i++) {
         const reg = prefix + i.toString().padStart(3,'0');
         if (!exclude.includes(reg)) arr.push(reg);
       }
-      add.forEach(r => arr.push(r));
+      if(add.length > 0) {
+        add.forEach(r => arr.push(r));
+      }
       return arr;
     }
 
+    // --- STUDENTS CONFIGURATION ---
     const regNums = {
-      firstYear: generateRegs('BCUS25', 1, 96, ['BCUS25006','BCUS25039']),
-      secondYear: generateRegs('BCUS24', 1, 124, ['BCUS24035','BCUS24055','BCUS24060','BCUS24064','BCUS24074','BCUS24106','BCUS24111','BCUS24119'], ['BCUS22051']),
-      thirdYear: generateRegs('BCUS23', 1, 122, ['BCUS23005','BCUS23006','BCUS23011','BCUS23015','BCUS23020','BCUS23033','BCUS23037','BCUS23038','BCUS23041','BCUS23086'], generateRegs('BCUS23', 401, 452, ['BCUS23411','BCUS23412','BCUS23414','BCUS23419','BCUS23421','BCUS23423','BCUS23431','BCUS23441'],['BCUS21092']))
+      firstYear: generateRegs('BCUS25', 1, 97, ['BCUS25006','BCUS25039','BCUS25095']),
+      secondYear: generateRegs('BCUS24', 1, 124, 
+        ['BCUS24035','BCUS24055','BCUS24060','BCUS24064','BCUS24074','BCUS24106','BCUS24111','BCUS24119'], 
+        ['BCUS22051'] 
+      )
     };
 
+    // --- ROOM CONFIGURATION ---
     const rooms = [
-      { room: '101', partitions: ['A', 'B', 'C'], benchSeats: 3 },
-      { room: '104', partitions: ['A', 'B', 'C'], benchSeats: 3 },
-      { room: '106', partitions: ['A', 'B', 'C'], benchSeats: 4 },
-      { room: '107', partitions: ['A', 'B', 'C'], benchSeats: 4 },
-      { room: '109', partitions: ['A', 'B', 'C'], benchSeats: 4 },
-      { room: '110', partitions: ['A', 'B', 'C'], benchSeats: 4 },
-      { room: '111', partitions: ['A', 'B', 'C'], benchSeats: 4 },
+      { room: '101', partitions: ['A', 'B', 'C'] },
+      { room: '104', partitions: ['A', 'B', 'C'] },
+      { room: '106', partitions: ['A', 'B', 'C'] },
+      { room: '107', partitions: ['A', 'B', 'C'] }, 
     ];
 
     const benchConfig = {
-      '101': { 'A': 4, 'B': 4, 'C': 4 },
-      '104': { 'A': 4, 'B': 4, 'C': 4 },
-      '106': { 'A': 5, 'B': 5, 'C': 6 },
-      '107': { 'A': 5, 'B': 5, 'C': 5 },
-      '109': { 'A': 5, 'B': 5, 'C': 5 },
-      '110': { 'A': 6, 'B': 6, 'C': 4 },
-      '111': { 'A': 4, 'B': 4, 'C': 4 },
+      '101': { 'A': 4, 'B': 4, 'C': 4 }, 
+      '104': { 'A': 4, 'B': 4, 'C': 4 }, 
+      '106': { 'A': 5, 'B': 5, 'C': 6 }, 
+      '107': { 'A': 5, 'B': 6, 'C': 7 }, 
     };
 
+    // Global Data
     let students = {};
-    let fIndex = 0, sIndex = 0, tIndex = 0;
+    let fIndex = 0; 
+    let sIndex = 0; 
 
     function getNextReg(year) {
       if(year === 'first') return regNums.firstYear[fIndex++] || '-'; 
       if(year === 'second') return regNums.secondYear[sIndex++] || '-';
-      if(year === 'third') return regNums.thirdYear[tIndex++] || '-';
       return '-';
     }
 
-    function getYearForSeat(room, partition, seatIdx) {
-      if(room === '106') {
-        if(partition === 'A') return ['third', 'first', 'second', 'third'][seatIdx];
-        if(partition === 'B') return ['second', 'first', 'third', 'second'][seatIdx];
-        if(partition === 'C') return ['second', 'third', 'second', 'third'][seatIdx];
-      }
-      if(room === '110' && partition === 'C') return ['second', 'first', 'third', 'second'][seatIdx];
-      if(room === '110' && partition === 'B') return ['first', 'second', 'third', 'first'][seatIdx];
-      if(room === '111') {
-        if(partition === 'A') return ['third', 'first', 'second', 'third'][seatIdx];
-        if(partition === 'B') return ['second', 'third', 'second', 'third'][seatIdx];
-        if(partition === 'C') return ['third', 'second', 'third', 'first'][seatIdx];
-      }
-      if(['107','109','110'].includes(room)) return ['third', 'first', 'second', 'third'][seatIdx];
-      return ['second', 'third', 'first'][seatIdx];
-    }
-
+    // --- 3. Allocation Logic ---
     function initData() {
-        fIndex = 0; sIndex = 0; tIndex = 0;
+        fIndex = 0; sIndex = 0;
         students = {};
+        
         rooms.forEach(room => {
           room.partitions.forEach(partition => {
-            const benchesCount = benchConfig[room.room][partition];
-            for (let benchIdx = 1; benchIdx <= benchesCount; benchIdx++) {
-              for (let seatIdx = 0; seatIdx < room.benchSeats; seatIdx++) {
-                const year = getYearForSeat(room.room, partition, seatIdx);
-                const reg = getNextReg(year);
-                if (reg !== '-') {
-                  students[reg] = { room: room.room, partition: partition, seat: seatIdx + 1, 
-                  year: year === 'first' ? '1st Year' : (year === 'second' ? '2nd Year' : '3rd Year') };
-                }
+            const benches = benchConfig[room.room][partition];
+            for (let b = 1; b <= benches; b++) {
+              let seats = [];
+              if (room.room === '107') {
+                 if (partition === 'B') seats = [ {s: 1, y: 'second'}, {s: 2, y: 'first'}, {s: 3, y: 'second'} ];
+                 else if (partition === 'C') seats = [ {s: 1, y: 'second'}, {s: 2, y: 'second'}, {s: 3, y: 'second'} ];
+                 else seats = [ {s: 1, y: 'first'}, {s: 2, y: 'second'}, {s: 3, y: 'first'}, {s: 4, y: 'second'} ];
+              } 
+              else {
+                  if (partition === 'B') seats = [ {s: 1, y: 'second'}, {s: 2, y: 'first'}, {s: 3, y: 'second'}, {s: 4, y: 'first'} ];
+                  else seats = [ {s: 1, y: 'first'}, {s: 2, y: 'second'}, {s: 3, y: 'first'}, {s: 4, y: 'second'} ];
               }
+
+              seats.forEach(obj => {
+                  let reg = getNextReg(obj.y);
+                  if (reg !== '-') {
+                    students[reg] = { room: room.room, partition: partition, seat: obj.s };
+                  }
+              });
             }
           });
         });
     }
-    initData();
+    
+    initData(); 
 
+    // --- 4. Find Logic ---
     function findHall() {
       const reg = document.getElementById("regInput").value.trim().toUpperCase();
       const res = document.getElementById("result");
+      
       if (students[reg]) {
         const d = students[reg];
         res.innerHTML = `
-          <div id="hallTicket" style="background:#fff;color:#000;padding:20px;border-radius:10px;text-align:left;">
-            <h3 style="text-align:center;color:#003366;">National College</h3>
-            <p style="text-align:center;font-size:12px;">BCA Exam Portal</p>
-            <hr>
-            <p><strong>Reg No:</strong> ${reg}</p>
-            <p><strong>Room:</strong> ${d.room}</p>
-            <p><strong>Partition:</strong> ${d.partition} | <strong>Seat:</strong> ${d.seat}</p>
-            <button onclick="window.print()" style="margin-top:15px; width:100%; padding:10px; background:#003366; color:white; border:none; border-radius:5px;">Print Hall Ticket</button>
+          <div class="ticket-card">
+            <h3 style="color:#003366; border-bottom:1px solid #ccc; padding-bottom:5px;">Room ${d.room}</h3>
+            <p style="font-size:18px; font-weight:bold; margin-top:10px;">${reg}</p>
+            <p>Partition: <strong>${d.partition}</strong></p>
+            <p>Seat Number: <strong>${d.seat}</strong></p>
           </div>`;
       } else {
-        res.innerHTML = `<p style="color:#ff4444;text-align:center;">Register Number Not Found!</p>`;
+        res.innerHTML = `<p style="color:#ff4444; margin-top:15px; font-weight:bold;">Register Number Not Found!</p>`;
       }
     }
 
+    // --- 5. Render Chart ---
     function renderChart() {
       const container = document.getElementById("chart-container");
       container.innerHTML = "";
-      fIndex = 0; sIndex = 0; tIndex = 0;
+      
+      fIndex = 0; sIndex = 0; 
+      
       rooms.forEach(room => {
         let html = `<div class="room"><h3>Room ${room.room}</h3>`;
+        
         room.partitions.forEach(partition => {
-          html += `<div class="partition-box"><p>Partition ${partition}</p><table><tr>`;
-          for(let i=1; i<=room.benchSeats; i++) html += `<th>S${i}</th>`;
-          html += `</tr>`;
-          for(let b = 0; b < benchConfig[room.room][partition]; b++) {
-            html += `<tr>`;
-            for(let s = 0; s < room.benchSeats; s++) {
-              let year = getYearForSeat(room.room, partition, s);
-              let reg = getNextReg(year);
-              html += `<td class="${year}">${reg}</td>`;
+          html += `<div class="partition-box"><p style="font-size:12px; font-weight:bold; color:#888;">Partition ${partition}</p>`;
+          let tableHtml = "";
+          
+          if (room.room === '107') {
+            if (partition === 'B') {
+                tableHtml += `<table><tr><th>Left(II)</th><th>Mid(I)</th><th>Right(II)</th></tr>`;
+                for(let b=0; b<benchConfig['107']['B']; b++){
+                   let r1 = getNextReg('second'); let r2 = getNextReg('first'); let r3 = getNextReg('second');
+                   if(r1==='-' && r2==='-' && r3==='-') continue;
+                   tableHtml += `<tr><td class="${r1!=='-'?'second':'empty-seat'}">${r1}</td><td class="${r2!=='-'?'first':'empty-seat'}">${r2}</td><td class="${r3!=='-'?'second':'empty-seat'}">${r3}</td></tr>`;
+                }
+            } 
+            else if (partition === 'C') {
+                tableHtml += `<table><tr><th>S1 (II)</th><th>S2 (II)</th><th>S3 (II)</th></tr>`;
+                for(let b=0; b<benchConfig['107']['C']; b++){
+                   let r1 = getNextReg('second'); let r2 = getNextReg('second'); let r3 = getNextReg('second');
+                   if(r1==='-' && r2==='-' && r3==='-') continue;
+                   tableHtml += `<tr><td class="${r1!=='-'?'second':'empty-seat'}">${r1}</td><td class="${r2!=='-'?'second':'empty-seat'}">${r2}</td><td class="${r3!=='-'?'second':'empty-seat'}">${r3}</td></tr>`;
+                }
+            } 
+            else {
+                tableHtml += `<table><tr><th>S1 (I)</th><th>S2 (II)</th><th>S3 (I)</th><th>S4 (II)</th></tr>`;
+                for(let b=0; b<benchConfig['107']['A']; b++){
+                   let r1 = getNextReg('first'); let r2 = getNextReg('second'); let r3 = getNextReg('first'); let r4 = getNextReg('second');
+                   if(r1==='-' && r2==='-' && r3==='-' && r4==='-') continue;
+                   tableHtml += `<tr><td class="first">${r1}</td><td class="second">${r2}</td><td class="first">${r3}</td><td class="second">${r4}</td></tr>`;
+                }
             }
-            html += `</tr>`;
+          } 
+          else {
+             if (partition === 'B') {
+                 tableHtml += `<table><tr><th>S1 (II)</th><th>S2 (I)</th><th>S3 (II)</th><th>S4 (I)</th></tr>`;
+                 for(let b=0; b<benchConfig[room.room][partition]; b++){
+                   let r1 = getNextReg('second'); let r2 = getNextReg('first'); let r3 = getNextReg('second'); let r4 = getNextReg('first');
+                   if(r1==='-' && r2==='-' && r3==='-' && r4==='-') continue;
+                   tableHtml += `<tr><td class="${r1!=='-'?'second':'empty-seat'}">${r1}</td><td class="${r2!=='-'?'first':'empty-seat'}">${r2}</td><td class="${r3!=='-'?'second':'empty-seat'}">${r3}</td><td class="${r4!=='-'?'first':'empty-seat'}">${r4}</td></tr>`;
+                 }
+             } else {
+                 tableHtml += `<table><tr><th>S1 (I)</th><th>S2 (II)</th><th>S3 (I)</th><th>S4 (II)</th></tr>`;
+                 for(let b=0; b<benchConfig[room.room][partition]; b++){
+                   let r1 = getNextReg('first'); let r2 = getNextReg('second'); let r3 = getNextReg('first'); let r4 = getNextReg('second');
+                   if(r1==='-' && r2==='-' && r3==='-' && r4==='-') continue;
+                   tableHtml += `<tr><td class="${r1!=='-'?'first':'empty-seat'}">${r1}</td><td class="${r2!=='-'?'second':'empty-seat'}">${r2}</td><td class="${r3!=='-'?'first':'empty-seat'}">${r3}</td><td class="${r4!=='-'?'second':'empty-seat'}">${r4}</td></tr>`;
+                 }
+             }
           }
-          html += `</table></div>`;
+          html += tableHtml + `</table></div>`;
         });
-        container.innerHTML += html + `</div>`;
+        
+        html += `</div>`; 
+        container.innerHTML += html; 
       });
     }
 
     function login() {
       const id = document.getElementById("id").value;
       const pass = document.getElementById("password").value;
-      if (id === "NCT" && pass === "0") { alert("Login Successful! Data Syncing..."); }
-      else { document.getElementById("errorMsg").textContent = "Access Denied!"; }
+      if (id === "NCT" && pass === "0") { alert("Login Successful! (Admin Mode)"); }
+      else { alert("Invalid Credentials"); }
     }
   </script>
 </body>
